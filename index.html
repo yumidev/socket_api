@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border:none;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+.tg .tg-us36{border-color:inherit;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <title>Binance Coin Latest Price</title>
+</head>
+<body>
+  <div class="container">
+    <table class="tg">
+      <tr>
+        <th class="btc"></th>
+        <th class="eth"></th>
+        <th class="bnb"></th>
+        <th class="sdt"></th>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
+
+<script src="socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost');
+  socket.on('price_data', function (data) {
+    // console.log("hello")
+    var quote = data.symbol.slice(-3)
+
+    // console.log(quote)
+    if($("div." + data.symbol.toUpperCase()).length) {
+      $("p." + data.symbol.toUpperCase()).html(data.price)
+    } else {
+      var appendItem = "<div class="
+                        + data.symbol
+                        + "><h3 class="
+                        + data.symbol
+                        + ">"
+                        + data.symbol
+                        + "</h3><p class="
+                        + data.symbol
+                        + ">"
+                        + data.price
+                        + "</p></div>"
+
+
+      $("th." + quote.toLowerCase()).append(appendItem)
+    }
+  });
+</script>
